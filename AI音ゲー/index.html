@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sonic Link</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="game-container">
+        <div id="lanes">
+            <div class="lane" id="lane-0"></div>
+            <div class="lane" id="lane-1"></div>
+            <div class="lane" id="lane-2"></div>
+            <div class="lane" id="lane-3"></div>
+            <div class="lane" id="lane-4"></div>
+            <div class="lane" id="lane-5" style="display: none;"></div>
+        </div>
+        <div id="judgment-line"></div>
+        <div id="score-display">Score: 0</div>
+        <div id="combo-display"></div>
+        <div id="judgment-display"></div>
+    </div>
+    <div id="game-overlay">
+        <div id="countdown-display"></div>
+    </div>
+    <div id="start-screen">
+        <h1>Sonic Link</h1>
+        <div class="song-selection">
+            <label for="song-select">SONG SELECT:</label>
+            <select id="song-select"></select>
+        </div>
+        <p id="song-display">曲: Nightmare Drop</p>
+        <div class="mode-selector">
+            <button id="mode-4k" class="active">4K</button>
+            <button id="mode-6k">6K</button>
+        </div>
+        <div class="volume-control">
+            <label for="bgm-volume">BGM音量</label>
+            <input type="range" id="bgm-volume" min="0" max="1" step="0.01" value="0.5">
+        </div>
+        <div class="volume-control">
+            <label for="sfx-volume">効果音音量</label>
+            <input type="range" id="sfx-volume" min="0" max="1" step="0.01" value="0.8">
+        </div>
+        <button id="start-button">ゲーム開始</button>
+    </div>
+
+    <div id="difficulty-screen" style="display: none;">
+        <h2>DIFFICULTY SELECT</h2>
+        <button class="difficulty-button" data-difficulty="easy">EASY</button>
+        <button class="difficulty-button" data-difficulty="normal">NORMAL</button>
+        <button class="difficulty-button" data-difficulty="hard">HARD</button>
+        <button class="difficulty-button" data-difficulty="master">MASTER</button>
+        <button id="back-to-start">戻る</button>
+    </div>
+
+    <audio id="music"></audio>
+    <script src="script.js"></script>
+</body>
+</html>
