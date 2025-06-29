@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@300;400;700&display=swap');
 
 body {
     display: flex;
@@ -7,11 +7,187 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #000;
+    background-color: #0a0a1a;
+    font-family: 'Exo 2', sans-serif;
+    color: #fff;
+    overflow: hidden;
+}
+
+/* --- Start Screen --- */
+#start-screen {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.start-screen-bg {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(45deg, #1e0033, #3d004d, #002b4d, #004d4d);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    z-index: 1;
+}
+
+.start-screen-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+    border: 1px solid rgba(0, 255, 255, 0.7);
+}
+
+.main-title {
     font-family: 'Orbitron', sans-serif;
+    font-size: 64px;
+    color: #fff;
+    text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 40px #ff00ff;
+    margin-bottom: 30px;
+    animation: flicker 3s infinite alternate;
+}
+
+.song-selection, .volume-controls, .start-buttons {
+    margin: 15px 0;
+}
+
+#song-display {
+    font-size: 18px;
+    color: #eee;
+    margin-bottom: 20px;
+}
+
+.mode-selector button, .start-buttons button {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    padding: 12px 25px;
+    margin: 0 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    background-color: rgba(0, 0, 0, 0.5);
     color: #fff;
 }
 
+.mode-selector button.active {
+    background-color: #00ffff;
+    color: #000;
+    box-shadow: 0 0 15px #00ffff;
+}
+
+.start-buttons button {
+    border-color: #ff00ff;
+}
+
+.start-buttons button:hover {
+    background-color: #ff00ff;
+    box-shadow: 0 0 20px #ff00ff;
+}
+
+/* --- Password Prompt --- */
+#password-prompt {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 20;
+}
+
+#password-input {
+    padding: 10px;
+    font-size: 18px;
+    margin: 20px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.password-buttons button {
+     padding: 10px 20px;
+     margin: 0 10px;
+     cursor: pointer;
+}
+
+.error-message {
+    color: #ff4444;
+    margin-top: 15px;
+}
+
+/* --- Beatmap Editor --- */
+#editor-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #111;
+}
+
+#editor-main {
+    display: flex;
+    flex-grow: 1;
+}
+
+#editor-lanes {
+    display: flex;
+    flex-direction: column;
+    background-color: #222;
+    padding: 5px;
+}
+
+#editor-timeline-container {
+    flex-grow: 1;
+    position: relative;
+    overflow-x: auto;
+}
+
+#editor-timeline-canvas {
+    height: 100%;
+}
+
+#timeline-scrubber {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background-color: #ff0000;
+    pointer-events: none;
+}
+
+#editor-controls {
+    padding: 15px;
+    background-color: #333;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.control-input {
+    width: 60px;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes flicker {
+    0%, 100% { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 40px #ff00ff; }
+    50% { text-shadow: 0 0 15px #00ffff, 0 0 30px #00ffff, 0 0 50px #ff00ff; }
+}
+
+/* (Keep existing game styles for .note, #game-container, etc.) */
 #game-container {
     position: relative;
     width: 360px; /* Adjusted 4K width */
@@ -66,6 +242,12 @@ body {
     will-change: top;
 }
 
+.lane:nth-child(2) .note,
+.lane:nth-child(5) .note {
+    background: linear-gradient(180deg, #00ff00, #00b800);
+    box-shadow: 0 0 8px #00ff00, 0 0 15px #fff;
+}
+
 #score-display {
     position: absolute;
     top: 10px;
@@ -110,13 +292,13 @@ body {
     text-shadow: 0 0 15px #fff;
 }
 
-#start-screen, #difficulty-screen {
+#difficulty-screen {
     position: absolute;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.9);
     color: #ff0000;
-    display: flex;
+    display: none; /* Initially hidden */
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -124,86 +306,10 @@ body {
     text-align: center;
 }
 
-#start-screen h1, #difficulty-screen h2 {
+#difficulty-screen h2 {
     font-size: 48px;
     margin-bottom: 20px;
     animation: pulse-neon 2s infinite;
-}
-
-.song-selection {
-    margin-bottom: 15px;
-    font-size: 18px;
-}
-
-.song-selection label {
-    text-shadow: 0 0 5px #ff0000;
-    margin-right: 10px;
-}
-
-#song-select {
-    background-color: #333;
-    color: #fff;
-    border: 1px solid #ff0000;
-    padding: 5px;
-    border-radius: 5px;
-    font-family: 'Orbitron', sans-serif;
-}
-
-#song-display {
-    font-size: 20px;
-    text-shadow: 0 0 5px #ff0000;
-    margin-bottom: 20px;
-}
-
-.mode-selector {
-    display: flex;
-    margin-bottom: 20px;
-    border: 1px solid #ff0000;
-    border-radius: 5px;
-    overflow: hidden;
-}
-
-.mode-selector button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    background-color: transparent;
-    color: #ff0000;
-    text-shadow: 0 0 5px #ff0000;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.mode-selector button.active {
-    background-color: #ff0000;
-    color: #000;
-}
-
-.volume-control {
-    margin: 10px 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-shadow: 0 0 5px #ff0000;
-}
-
-#start-button {
-    padding: 15px 30px;
-    font-size: 20px;
-    cursor: pointer;
-    border: 2px solid #ff0000;
-    border-radius: 5px;
-    background-color: transparent;
-    color: #ff0000;
-    text-shadow: 0 0 5px #ff0000;
-    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s, border-color 0.3s;
-}
-
-#start-button:hover {
-    background-color: #9400D3;
-    color: #fff;
-    border-color: #9400D3;
-    box-shadow: 0 0 20px #9400D3;
 }
 
 #difficulty-screen .difficulty-button, #back-to-start {
